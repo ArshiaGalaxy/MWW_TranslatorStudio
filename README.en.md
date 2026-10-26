@@ -12,7 +12,7 @@ You feed it a PDF: text gets detected, translated to Persian, the original is in
 [![Django](https://img.shields.io/badge/Django-5-darkgreen?logo=django&logoColor=white)](https://www.djangoproject.com/)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js&logoColor=white)](https://nextjs.org/)
 
-**[🇮🇷 راهنمای فارسی / Persian Guide](README.md)**
+**[راهنمای فارسی / Persian Guide](README.md)**
 
 <img src="docs/images/screenshot-landing.png" alt="MWW Translator Studio landing page" width="900">
 
@@ -41,7 +41,7 @@ A full-stack, local-first studio for Persian manga/manhwa translation:
 ## ✨ Features
 
 - 🖼 **Visual editor**: drag & move boxes, resize from corners, double-click a bubble to type the Persian translation
-- 🇮🇷 **Full RTL UI**: Persian/English switcher, dark/light theme, Mikhak & Vazir fonts
+- 💎 **Full RTL UI**: Persian/English switcher, dark/light theme, Mikhak & Vazir fonts
 - 🧠 **Multiple translation providers**: OpenRouter, Gemini, and Custom (any OpenAI-compatible endpoint — even local ones like LM Studio or Ollama)
 - 📊 **Live progress bar**: real-time logs for Extract, Translate and Apply jobs
 - 📈 **Manhwa-aware OCR**: vertical scroll pages with cross-page merging
@@ -202,7 +202,7 @@ Contributions are welcome and simple — please read [CONTRIBUTING.md](CONTRIBUT
 
 <div align="center">
 
-Built with ❤️ for the Persian-speaking community 🇮🇷
+Built with ❤️ for the Persian-speaking community
 
 ⭐ If this helps you, give the project a **Star** — it really motivates!
 
