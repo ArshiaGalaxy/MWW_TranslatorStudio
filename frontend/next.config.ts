@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const BACKEND = process.env.BACKEND_URL ?? "http://127.0.0.1:8000";
 
 const nextConfig: NextConfig = {
+  devIndicators: false,
   // Keep trailing slashes intact — Django's APPEND_SLASH + Next normalization
   // would otherwise create a /api/.../ redirect loop through the proxy.
   skipTrailingSlashRedirect: true,

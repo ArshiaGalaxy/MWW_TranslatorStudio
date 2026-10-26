@@ -79,7 +79,7 @@ if "%NEEDSETUP%"=="1" (
         exit /b 1
     )
     backend\.venv\Scripts\python.exe -m pip install -q --upgrade pip
-    backend\.venv\Scripts\python.exe -m pip install -r backend\requirements-core.txt
+    backend\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
     if errorlevel 1 (
         echo.
         echo        [X] Downloading packages failed.
