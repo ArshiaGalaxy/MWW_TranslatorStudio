@@ -123,15 +123,15 @@ The servers run on the laptop; your phone only needs a browser:
 
 ## 🎬 0 to 100: your first real translation
 
-| Step | What happens |
-| --- | --- |
-| 1️⃣ Log in | `/login` with `admin / admin123` |
-| 2️⃣ New project | Dashboard → drag & drop the PDF, pick **Manhwa** or **Manga**, create the project |
-| 3️⃣ Extract | Hit **Extract OCR** — bubbles are detected as you go; un-tick covers/pages you don't want |
-| 4️⃣ Studio | In the editor: move boxes, resize, **double-click = type the Persian translation**; right panel: font/size/color/alignment per block |
+| Step                          | What happens |
+|-------------------------------| -- |
+| 1️⃣ Projects                  |
+| 2️⃣ New project               | Dashboard → drag & drop the PDF, pick **Manhwa** or **Manga**, create the project |
+| 3️⃣ Extract                   | Hit **Extract OCR** — bubbles are detected as you go; un-tick covers/pages you don't want |
+| 4️⃣ Studio                    | In the editor: move boxes, resize, **double-click = type the Persian translation**; right panel: font/size/color/alignment per block |
 | 5️⃣ Auto-translate (optional) | **Auto-translate** for one page or all pages → machine translation via API |
-| 6️⃣ Apply & Export | **Apply & Export** → originals inpainted away, Persian rendered → download links for **PDF / ZIP / PSD** |
-| 7️⃣ Settings | The Settings page edits the global engine config: keys, models, OCR params, typography |
+| 6️⃣ Apply & Export            | **Apply & Export** → originals inpainted away, Persian rendered → download links for **PDF / ZIP / PSD** |
+| 7️⃣ Settings                  | The Settings page edits the global engine config: keys, models, OCR params, typography |
 
 > 📌 The project also runs **without** the heavy AI packages: you can translate manually and still export PDF/ZIP/PSD. For auto-OCR and machine translation, one extra step is needed 👇
 
