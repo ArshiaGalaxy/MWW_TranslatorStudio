@@ -90,7 +90,7 @@ cd MWW_TranslatorStudio
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate                # ویندوز:  .venv\Scripts\activate
-pip install -r requirements-core.txt
+pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver 127.0.0.1:8000
 
