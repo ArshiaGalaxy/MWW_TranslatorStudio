@@ -18,7 +18,4 @@ out/
 .env.local
 .idea/
 .vscode/
-
-# Engine config with real API keys (template kept at config.example.json)
-backend/studio_engine/config.json
 backend/.venv
