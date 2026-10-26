@@ -1,0 +1,647 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("/fonts/Vazirmatn.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+/* Mikhak ships as a single static Bold instance — declare it as 700 so the
+   browser doesn't synthesize a second bold on top of the real one. */
+@font-face {
+  font-family: "Mikhak";
+  src: url("/fonts/Mikhak.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+/* Figtree — Latin-only variable font. First in every stack so English words
+   set in it; Persian glyphs fall through to Mikhak/Vazirmatn. */
+@font-face {
+  font-family: "Figtree";
+  src: url("/fonts/Figtree.woff2") format("woff2");
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Theme tokens ─────────────────────────────────────────────────────── */
+
+/* Vira identity: Deep Ink surfaces, warm cream paper in light mode, cobalt
+   (#3155D9) as the single strong accent. */
+:root,
+.dark {
+  --bg: #111522;
+  --bg-elev: #161b2c;
+  --surface: #171c2e;
+  --surface2: #1d2338;
+  --surface3: #252c45;
+  --line: #2a3149;
+  --line-strong: #3d4666;
+  --ink: #f0ede3;
+  --muted: #9aa3ba;
+  --faint: #7e879e;
+  --primary: #4a6be8;
+  --primary-strong: #93a7ff;
+  --primary-fg: #ffffff;
+  --accent: #4a6be8;
+  --success: #3ecf8e;
+  --warning: #f5b93f;
+  --danger: #f37c7c;
+  --glow-a: rgba(74, 107, 232, 0.12);
+  --glow-b: rgba(74, 107, 232, 0.08);
+  --shadow-card: 0 12px 36px -14px rgba(0, 0, 0, 0.5);
+
+  /* Final CTA panel is intentionally ink — one step darker than the dark
+     bg so the closing section still reads as an inversion. */
+  --end-panel-ink: #0d111c;
+  --end-panel-tag-bg: #1a2032;
+  --end-panel-tag-border: #2e3852;
+  --end-panel-tag-shadow: #05070d;
+}
+
+.light {
+  --bg: #f7f4ea;
+  --bg-elev: #fffdf8;
+  --surface: #fffdf8;
+  --surface2: #f1ede0;
+  --surface3: #e9e4d6;
+  --line: #e4dfce;
+  --line-strong: #c9c3ae;
+  --ink: #111522;
+  --muted: #68738a;
+  --faint: #8a93a8;
+  --primary: #3155d9;
+  --primary-strong: #2646c9;
+  --primary-fg: #ffffff;
+  --accent: #3155d9;
+  --success: #1b7f4d;
+  --warning: #9a6b08;
+  --danger: #c43d3d;
+  --glow-a: rgba(49, 85, 217, 0.1);
+  --glow-b: rgba(49, 85, 217, 0.06);
+  --shadow-card: 0 10px 30px -18px rgba(17, 21, 34, 0.25);
+
+  --end-panel-ink: #111522;
+  --end-panel-tag-bg: #1a2032;
+  --end-panel-tag-border: #2e3852;
+  --end-panel-tag-shadow: #05070d;
+}
+
+@theme inline {
+  --color-base: var(--bg);
+  --color-elev: var(--bg-elev);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface2);
+  --color-surface3: var(--surface3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-fg: var(--primary-fg);
+  --color-accent: var(--accent);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-danger: var(--danger);
+  --font-sans: "Figtree", "Vazirmatn", ui-sans-serif, system-ui, "Segoe UI", Tahoma, sans-serif;
+  --font-display: "Figtree", "Mikhak", "Vazirmatn", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Cascadia Code", "SF Mono", Consolas, ui-monospace, monospace;
+
+  /* Radius scale — the three radii the component classes actually use.
+     `rounded-card` / `rounded-inner` / `rounded-btn` become utilities. */
+  --radius-card: 1rem;
+  --radius-inner: 0.75rem;
+  --radius-btn: 0.65rem;
+}
+
+html {
+  color-scheme: dark;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+html.light {
+  color-scheme: light;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  min-height: 100%;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-fg);
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+  background-clip: content-box;
+}
+
+/* ── Components ───────────────────────────────────────────────────────── */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+.card-flat {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius-btn);
+  font-weight: 700;
+  white-space: nowrap;
+  transition: all 0.16s ease;
+  cursor: pointer;
+}
+.btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: var(--primary-fg);
+  box-shadow: 0 4px 16px -8px color-mix(in srgb, var(--primary) 70%, transparent);
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--primary-strong);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px -8px color-mix(in srgb, var(--primary) 75%, transparent);
+}
+
+.btn-ghost {
+  background: var(--surface2);
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+.btn-ghost:hover:not(:disabled) {
+  background: var(--surface3);
+  border-color: var(--line-strong);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line-strong);
+}
+.btn-outline:hover:not(:disabled) {
+  border-color: var(--primary);
+  color: var(--primary-strong);
+}
+
+.btn-danger {
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+  color: var(--danger);
+  border: 1px solid color-mix(in srgb, var(--danger) 35%, transparent);
+}
+.btn-danger:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--danger) 22%, transparent);
+}
+
+.input-base {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-btn);
+  padding: 0.55rem 0.8rem;
+  font-size: 0.875rem;
+  width: 100%;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input-base::placeholder {
+  color: var(--faint);
+}
+.input-base:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 22%, transparent);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  background: var(--surface2);
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.fa-text {
+  direction: rtl;
+  text-align: right;
+}
+.fa-text.fa-center {
+  text-align: center;
+}
+
+.glow-blob {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-3px);
+  border-color: var(--line-strong);
+  box-shadow: var(--shadow-card), 0 0 30px -10px var(--glow-a);
+}
+
+.skeleton {
+  background: linear-gradient(
+    100deg,
+    var(--surface2) 40%,
+    var(--surface3) 50%,
+    var(--surface2) 60%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: var(--radius-inner);
+}
+@keyframes shimmer {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.anim-fade-up {
+  animation: fade-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.anim-pop {
+  animation: pop-in 0.22s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Canvas editor ────────────────────────────────────────────────────── */
+
+/* Canvas editor — boxes float over manga art, so both themes keep a
+   light paper fill (white ink stays legible); theming only the frame.
+   container-type: size turns each box into a query container so its
+   text can be sized in cqw units — fonts then scale with the box at
+   any zoom (Fit and Actual) instead of being fixed pixels. */
+.block-box {
+  position: absolute;
+  container-type: size;
+  border: 2px solid color-mix(in srgb, var(--primary) 90%, transparent);
+  background: rgba(255, 255, 255, 0.93);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: move;
+  touch-action: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  transition: border-color 0.12s ease, box-shadow 0.12s ease;
+}
+.block-box:hover {
+  border-color: var(--accent);
+}
+.block-box.selected {
+  border-color: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 30%, transparent);
+}
+.block-box.type-sfx {
+  border-color: rgba(248, 113, 113, 0.9);
+}
+.block-box.type-thinking {
+  border-color: rgba(251, 191, 36, 0.9);
+}
+/* Resize: 4 corners + 4 edge handles; both sides of a rotated box rotate
+   along with the transform (geometry math projects the drag). */
+.block-box .resize-handle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background: var(--primary);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+.block-box .rh-e, .block-box .rh-w {
+  width: 9px; height: 18px; border-radius: 4px;
+}
+.block-box .rh-n, .block-box .rh-s {
+  width: 18px; height: 9px; border-radius: 4px;
+}
+.block-box .rh-n  { top: -6px;  left: calc(50% - 9px); cursor: ns-resize; }
+.block-box .rh-s  { bottom: -6px; left: calc(50% - 9px); cursor: ns-resize; }
+.block-box .rh-e  { right: -6px; top: calc(50% - 9px); cursor: ew-resize; }
+.block-box .rh-w  { left: -6px; top: calc(50% - 9px); cursor: ew-resize; }
+.block-box .rh-ne { top: -6px;  right: -6px; cursor: nesw-resize; }
+.block-box .rh-nw { top: -6px;  left: -6px; cursor: nwse-resize; }
+.block-box .rh-se { bottom: -6px; right: -6px; cursor: nwse-resize; }
+.block-box .rh-sw { bottom: -6px; left: -6px; cursor: nesw-resize; }
+.block-box:hover .resize-handle,
+.block-box.selected .resize-handle {
+  opacity: 1;
+}
+
+/* ── Landing: manga chapter language ─────────────────────────────────── */
+
+/* A manga panel: paper surface, thick ink frame, hard offset print shadow */
+.panel-ink {
+  position: relative;
+  background: var(--surface);
+  border: 2px solid var(--line-strong);
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+/* Drop-zone variant + active state (unlayered so it beats the shorthand) */
+.panel-ink.panel-dashed {
+  border-style: dashed;
+}
+.panel-ink.drop-active {
+  border-color: var(--primary);
+  box-shadow: 0 0 40px -12px var(--glow-a);
+}
+
+/* Screentone dots fading into a corner (inline-end by default) */
+.halftone-corner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--primary) 40%, transparent) 1.2px,
+    transparent 1.4px
+  );
+  background-size: 11px 11px;
+  -webkit-mask-image: radial-gradient(
+    circle at 100% 0%,
+    black,
+    transparent 46%
+  );
+  mask-image: radial-gradient(circle at 100% 0%, black, transparent 46%);
+}
+html[dir="rtl"] .halftone-corner::after {
+  -webkit-mask-image: radial-gradient(circle at 0% 0%, black, transparent 46%);
+  mask-image: radial-gradient(circle at 0% 0%, black, transparent 46%);
+}
+
+/* Chapter eyebrow — volume-tag styling with a hard print shadow */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 0.85rem;
+  border: 2px solid var(--line-strong);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  font-family: var(--font-display);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  box-shadow: 3px 3px 0 0 var(--line);
+}
+
+/* Numbered step tiles — only used where order is real information */
+.step-tile {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.6rem;
+  height: 3.6rem;
+  background: var(--surface);
+  border: 2px solid var(--line-strong);
+  border-radius: 1rem;
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  box-shadow: 3px 3px 0 0 var(--line);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+  transform: rotate(var(--tilt, 0deg));
+}
+.step-tile:hover {
+  transform: rotate(var(--tilt, 0deg)) translateY(-2px);
+  border-color: var(--primary);
+}
+
+/* Dotted ink connector for workflow / timeline strips */
+.step-line {
+  background-image: radial-gradient(
+    circle,
+    var(--line-strong) 1.5px,
+    transparent 2px
+  );
+  background-size: 12px 3px;
+  background-repeat: repeat-x;
+  background-position: center;
+}
+
+/* A tall dotted connector for vertical (mobile) timelines */
+.step-line-v {
+  background-image: radial-gradient(
+    circle,
+    var(--line-strong) 1.5px,
+    transparent 2px
+  );
+  background-size: 3px 12px;
+  background-repeat: repeat-y;
+  background-position: center;
+}
+
+/* The closing END panel — ink-black in both themes, like a chapter's
+   final inverted panel. Halftone floor rises from the bottom edge. */
+.end-panel {
+  position: relative;
+  background:
+    radial-gradient(
+      120% 130% at 50% 0%,
+      color-mix(in srgb, var(--primary) 8%, transparent),
+      transparent 55%
+    ),
+    var(--end-panel-ink);
+  border: 2px solid var(--line-strong);
+  border-radius: 1.5rem;
+  overflow: hidden;
+}
+.halftone-floor {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.13) 1.2px,
+    transparent 1.4px
+  );
+  background-size: 13px 13px;
+  -webkit-mask-image: linear-gradient(to top, black 0%, transparent 52%);
+  mask-image: linear-gradient(to top, black 0%, transparent 52%);
+}
+
+/* Inside the ink panel, invert the chapter tag */
+.end-panel .section-tag {
+  background: var(--end-panel-tag-bg);
+  border-color: var(--end-panel-tag-border);
+  color: rgba(255, 255, 255, 0.65);
+  box-shadow: 3px 3px 0 0 var(--end-panel-tag-shadow);
+}
+
+/* ── Landing: compare cards & FAQ ─────────────────────────────────────── */
+
+/* Card that holds a real-page comparison (hero, slider, viewer) — paper
+   white, hairline border, one quiet shadow. The pages stay the loudest
+   thing on screen. */
+.compare-frame {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}
+
+/* Page image inside a comparison: hairline frame like a print proof */
+.compare-page {
+  border: 1px solid var(--line);
+  border-radius: 0.6rem;
+  background: #fff;
+  display: block;
+}
+
+/* FAQ accordion rows */
+.faq-item {
+  border-bottom: 1px solid var(--line);
+}
+.faq-item:last-child {
+  border-bottom: none;
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 0.25rem;
+  font-weight: 700;
+  transition: color 0.15s ease;
+}
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+.faq-item summary:hover {
+  color: var(--primary);
+}
+.faq-item[open] summary {
+  color: var(--primary);
+}
+.faq-item .faq-chevron {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.faq-item[open] .faq-chevron {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+.faq-item .faq-body {
+  padding: 0 0.25rem 1.15rem;
+  color: var(--muted);
+  line-height: 1.7;
+}

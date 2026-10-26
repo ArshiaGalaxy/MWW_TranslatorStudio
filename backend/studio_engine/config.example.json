@@ -1,0 +1,82 @@
+{
+  "ocr": {
+    "dpi": 200,
+    "confidence_min": 0.5,
+    "dbscan_eps": 1.5,
+    "pdf_type": "manga",
+    "ocr_version": "PP-OCRv6",
+    "ocr_max_side": 3000,
+    "standard_max_side": 3000,
+    "max_chunk_height": 2400,
+    "cross_page_height": 600,
+    "enable_cross_page_merge": true,
+    "duplicate_iou_threshold": 0.85,
+    "long_strip_aspect_ratio_threshold": 1.5,
+    "size_consistency_threshold": 0.15,
+    "boundary_region_height": 200,
+    "boundary_dialogue_min_height": 20,
+    "manhwa_concat_width": 1200,
+    "manhwa_concat_overlap": 500,
+    "angle_merge_threshold": 0.0,
+    "ocr_det_limit_side_len": 960,
+    "ocr_det_unclip_ratio": 2.5,
+    "ocr_det_box_thresh": 0.3,
+    "ocr_det_thresh": 0.2,
+    "ocr_enable_angle_cls": true,
+    "text_rec_score_thresh": 0.5
+  },
+  "font": {
+    "path_normal": "",
+    "path_sfx": null,
+    "path_thinking": "",
+    "size_max": 25,
+    "size_min": 10,
+    "stroke_width": 0,
+    "tall_render_chunk_size": 3
+  },
+  "chapter_id": {
+    "color": "#55d6ce",
+    "stroke_color": "#0e1d6f",
+    "stroke_width": 4,
+    "size": 75
+  },
+  "typography": {
+    "match_original_text_color": false,
+    "text_color_contrast_min": 3.0,
+    "ink_color_distance_threshold": 90.0,
+    "ink_quantization_step": 16
+  },
+  "inpaint": {
+    "method": "cv_auto",
+    "cv_auto_solid_ratio": 0.83,
+    "cv_auto_color_bucket": 16,
+    "cv_auto_mask_pad": 0,
+    "opencv_radius": 3,
+    "opencv_method": "ns",
+    "lama_device": "auto",
+    "padding_x": 4,
+    "padding_y": 4,
+    "pcleaner_profile": null,
+    "pcleaner_cli_path": null
+  },
+  "translator": {
+    "provider": "openrouter",
+    "temperature": 0.0,
+    "chunk_size": 50,
+    "system_prompt": "You are an expert manga/manhwa/comic translator specializing in English to Persian (Farsi) translations.\n\n## OUTPUT FORMAT\nReturn ONLY a valid JSON object. No explanations, no markdown, no code blocks.\nKeys must match the input exactly. Translate only the values.\n\n## MANGA TRANSLATION RULES\n\n### 1. Natural Persian Speech\n- Characters must sound like real Iranian people talking\n- Use casual spoken Persian (محاوره‌ای), not formal/literary Persian\n- Match the register: street thug talks rough, teacher talks proper, kid talks simple\n- Preserve slang, contractions, and informal speech patterns\n\n### 2. Conciseness (CRITICAL)\n- Manga speech bubbles are SMALL. Text MUST fit.\n- Persian text should be SHORTER or same length as English\n- Remove unnecessary words, articles, filler\n- If English: \"I'm going to go to the store\" → Persian: \"میرم مغازه\" (not \"من دارم می‌روم به مغازه\")\n- One line of Persian ≈ 3-5 words max for small bubbles\n\n### 3. Character Name Consistency\n- Transliterate ALL proper nouns to Persian (never leave English names)\n- Same character = same Persian spelling EVERY TIME\n- Common manga names: Luffy=لوفی, Naruto=ناروتو, Goku=گوکو, Ichigo=ایچیگو\n- For unknown names, transliterate by pronunciation\n- If a name was translated before in the context, USE THE SAME TRANSLATION\n\n### 4. SFX / Sound Effects\n- For SFX keys (containing sound words like BOOM, WHOOSH, CRASH):\n  - Transliterate to Persian phonetic equivalent\n  - Examples: BOOM=بوم, WHOOSH=هوosh, CRASH=کرش\n  - Keep it short and punchy\n\n### 5. Emotion & Tone\n- Exclamation marks = keep them\n- Anger: use strong words (عوضی, لعنتی, احمق)\n- Surprise: واو!, ای بابا!, خدای من!\n- Sarcasm: add tone markers (آره حتماً, البته که)\n- Fear: use trembling/urgent language\n- Keep the INTENSITY of the original\n\n### 6. Cultural Adaptation\n- Don't translate literally — translate the MEANING\n- Use Persian equivalents for English idioms\n- \"Break a leg\" → «موفق باشی» (not «پایت رو بشکن»)\n- \"No way!\" → «نـه بابا!» or «محاله!»\n\n## EXAMPLES\n\nInput: {\"p1_d1\": \"Hello!\", \"p1_d2\": \"My name is John.\", \"p1_d3\": \"Let's fight!\"}\nOutput: {\"p1_d1\": \"سلام!\", \"p1_d2\": «اسم جانه.», \"p1_d3\": «بزن بریم!»}\n\nInput: {\"p2_d1\": \"I can't believe it...\", \"p2_d2\": \"BOOM\"}\nOutput: {\"p2_d1\": «باورم نمیشه...», \"p2_d2\": «بوم»}\n\nReturn JSON only.",
+    "user_prompt": "Translate these manga dialogs to Persian. Keep it SHORT and NATURAL.\n\n{dialogs}\n\nReturn JSON only.",
+    "openrouter": {
+      "model": "google/gemma-4-26b-a4b-it:free",
+      "api_key": ""
+    },
+    "gemini": {
+      "model": "gemini-2.0-flash",
+      "api_key": ""
+    },
+    "custom": {
+      "base_url": "http://localhost:1234/v1",
+      "model": "",
+      "api_key": ""
+    }
+  }
+}

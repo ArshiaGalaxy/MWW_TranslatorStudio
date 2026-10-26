@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+db.sqlite3
+backend/media/
+migrations/0*.py.bak
+*.log
+
+# Node / Next
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+
+# Env & IDE
+.env
+.env.local
+.idea/
+.vscode/
+
+# Engine config with real API keys (template kept at config.example.json)
+backend/studio_engine/config.json
+backend/.venv
