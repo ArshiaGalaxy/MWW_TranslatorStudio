@@ -59,7 +59,7 @@ A full-stack, local-first studio for Persian manga/manhwa translation:
 | 🔑 Translation API key (optional) | — | [OpenRouter](https://openrouter.ai/) or [Gemini](https://aistudio.google.com/apikey) |
 | 🗂 LaMa model (optional) | `pip install simple-lama-inpainting` | see below 👇 |
 
-> 🪟 Windows, Linux and macOS are all supported; on Windows the included **start.bat** does everything.
+> 🪟 Windows, Linux and macOS are all supported; on Windows the included **`start.bat`** does everything (`start-lan.bat` additionally lets your phone/tablet use the app over the same WiFi).
 
 ## 🚀 Quick start: 0 to 100
 
@@ -101,6 +101,25 @@ npm run dev
 ```
 
 🌐 Open your browser at **http://localhost:3000** — no login needed, straight to the dashboard.
+
+### Option 3 — use it from your phone / tablet (same WiFi as the laptop 📱)
+
+The servers run on the laptop; your phone only needs a browser:
+
+1. ⚡ Connect the phone and the laptop to the **same WiFi network**.
+2. 🔛 Double-click **`start-lan.bat`** (Windows). It:
+   - ✔ Starts the same servers as `start.bat` (if you never ran `start.bat`, run it first — it installs everything)
+   - ✔ Opens port 3000 in the Windows firewall (one-time)
+   - ✔ Prints the URL to open on the phone, e.g. `http://192.168.1.42:3000`
+3. 📱 Open that URL in the phone's browser.
+
+> ℹ️ **How it works:** only the Next.js frontend (port 3000) is shared on the network. Django keeps listening on `127.0.0.1:8000` on the laptop, and the laptop's Next server proxies all `/api` and `/media` requests to it — so no CORS configuration is needed.
+>
+> ⚠️ **Security:** the studio has no real server-side login — **anyone** on the same WiFi can open it. Use it only on a home/private network, never on a public hotspot.
+>
+> 🪧 If the phone can't reach the laptop, check the troubleshooting table below (WiFi client isolation is the usual culprit).
+>
+> 🖥 **Linux/macOS:** there is no launcher script, but it's simple: start the frontend with `npm run dev -- -H 0.0.0.0` instead of plain `npm run dev`, then open `http://<laptop-IP>:3000` on the phone (find the IP with `ipconfig` on Windows / `ip addr` or `hostname -I` on macOS/Linux).
 
 ## 🎬 0 to 100: your first real translation
 
@@ -165,6 +184,7 @@ Then:
 | `DLL load failed` on paddleocr | Install 64-bit (x64) Python, not 32-bit |
 | First page load is very slow | It's the first Next.js build — subsequent loads are fast |
 | Images/files won't download | With `DJANGO_DEBUG=0`, `/media` files are served only to signed-in users — make sure you're logged in |
+| Phone can't open the LAN URL | Both devices must be on the same WiFi **without client isolation** (guest networks usually isolate devices); make sure the firewall allows TCP 3000 (`start-lan.bat` adds the rule, but only for networks marked *Private* — if Windows shows your WiFi as *Public*, switch it to Private in Settings → Network & Internet); use the exact **IPv4 Address** of the Wi-Fi adapter from `ipconfig` (not the `169.254.x.x` one) |
 
 ## 📜 License (please read)
 
