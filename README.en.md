@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📘 MWW Translator Studio
+# 📘 Vira Translator Studio
 
 **A complete studio for translating manhwa, manga & comics into Persian — runs on your own machine, private and unlimited.**
 
@@ -14,7 +14,7 @@ You feed it a PDF: text gets detected, translated to Persian, the original is in
 
 **[راهنمای فارسی / Persian Guide](README.md)**
 
-<img src="docs/images/screenshot-landing.png" alt="MWW Translator Studio landing page" width="900">
+<img src="docs/images/screenshot-landing.png" alt="Vira Translator Studio landing page" width="900">
 
 <sub>⬆ The project landing page — real screenshot goes here.</sub>
 
@@ -67,8 +67,8 @@ A full-stack, local-first studio for Persian manga/manhwa translation:
 
 1. 📥 Get the project:
    ```powershell
-   git clone https://github.com/ArshiaGalaxy/MWW_TranslatorStudio.git
-   cd MWW_TranslatorStudio
+   git clone https://github.com/ArshiaGalaxy/Vira_TranslatorStudio.git
+   cd Vira_TranslatorStudio
    ```
    (or download and extract the ZIP from the Releases page)
 2. 🔛 Double-click **`start.bat`**. On the very first run it automatically:
@@ -83,8 +83,8 @@ A full-stack, local-first studio for Persian manga/manhwa translation:
 
 ```bash
 # 1️⃣ Get the code
-git clone https://github.com/ArshiaGalaxy/MWW_TranslatorStudio.git
-cd MWW_TranslatorStudio
+git clone https://github.com/ArshiaGalaxy/Vira_TranslatorStudio.git
+cd Vira_TranslatorStudio
 
 # 2️⃣ Backend — Django + API (port 8000)
 cd backend
@@ -192,7 +192,7 @@ Released under **[PolyForm Noncommercial 1.0.0](LICENSE)**:
 
 - ✅ **Personal, noncommercial use is completely free** — download, run, modify, use on your own machine.
 - ⛔ **Selling, republishing under a different name, or removing attribution is not allowed** — those require the author's written permission.
-- 💌 For collaboration, commercial use or redistribution: [open an Issue](https://github.com/ArshiaGalaxy/MWW_TranslatorStudio/issues) or message me — happy to help.
+- 💌 For collaboration, commercial use or redistribution: [open an Issue](https://github.com/ArshiaGalaxy/Vira_TranslatorStudio/issues) or message me — happy to help.
 
 ## 🤝 Contributing
 

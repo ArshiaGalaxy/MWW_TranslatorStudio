@@ -1,4 +1,4 @@
-"""URL configuration for MWW Translator Studio backend."""
+"""URL configuration for Vira Translator Studio backend."""
 
 from django.urls import include, path
 

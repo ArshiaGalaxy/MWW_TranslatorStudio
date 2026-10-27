@@ -1,6 +1,6 @@
 <div align="center">
 
-# 📘 MWW Translator Studio
+# 📘 Vira Translator Studio
 
 **استودیوی کامل ترجمهٔ مانهوا (Manhwa)، مانگا و کمیک به فارسی — روی سیستمِ خودت، خصوصی و بدون محدودیت**
 
@@ -67,8 +67,8 @@ PDF رو میدی؛ متن تشخیص داده می‌شه، به فارسی ت�
 
 1. 📥 پروژه را بگیرید:
    ```powershell
-   git clone https://github.com/ArshiaGalaxy/MWW_TranslatorStudio.git
-   cd MWW_TranslatorStudio
+   git clone https://github.com/ArshiaGalaxy/Vira_TranslatorStudio.git
+   cd Vira_TranslatorStudio
    ```
    (یا از صفحهٔ Releases، ZIP را دانلود و باز کنید.)
 2. 🔛 فایل **`start.bat`** را دوبارکلیک کنید. بار اول، خودش این کارها را انجام می‌دهد:
@@ -83,8 +83,8 @@ PDF رو میدی؛ متن تشخیص داده می‌شه، به فارسی ت�
 
 ```bash
 # 1️⃣ دانلود
-git clone https://github.com/ArshiaGalaxy/MWW_TranslatorStudio.git
-cd MWW_TranslatorStudio
+git clone https://github.com/ArshiaGalaxy/Vira_TranslatorStudio.git
+cd Vira_TranslatorStudio
 
 # 2️⃣ بک‌اند — Django + API (پورت 8000)
 cd backend
@@ -192,7 +192,7 @@ pip install -r requirements.txt
 
 - ✅ **استفادهٔ شخصی و غیرتجاری کاملاً آزاد** — دانلود، اجرا، تغییر و استفاده در سیستم خودت.
 - ⛔ **فروش، بازنشر با نام دیگری، یا حذف نشانهٔ کپی‌رایت ممنوع است** — این‌ها فقط با اجازهٔ کتبیِ نویسنده ممکن است.
-- 💌 برای همکاری، استفادهٔ تجاری یا انتشار دوباره: [Issue باز کنید](https://github.com/ArshiaGalaxy/MWW_TranslatorStudio/issues) یا به من پیام بده — خوشحال می‌شم کمک کنم.
+- 💌 برای همکاری، استفادهٔ تجاری یا انتشار دوباره: [Issue باز کنید](https://github.com/ArshiaGalaxy/Vira_TranslatorStudio/issues) یا به من پیام بده — خوشحال می‌شم کمک کنم.
 
 ## 🤝 مشارکت
 

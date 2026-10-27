@@ -1,12 +1,12 @@
 
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
-title MWW Translator Studio - Launcher
+title Vira Translator Studio - Launcher
 cd /d "%~dp0"
 cls
 
 REM ============================================================
-REM MWW Translator Studio - Windows Launcher
+REM Vira Translator Studio - Windows Launcher
 REM Python + Django + Next.js
 REM Automatic retries for package installation
 REM ============================================================
@@ -15,7 +15,7 @@ set "MAX_RETRIES=5"
 
 echo.
 echo ============================================================
-echo     MWW TRANSLATOR STUDIO - Launcher
+echo     Vira TRANSLATOR STUDIO - Launcher
 echo ============================================================
 echo.
 
@@ -146,14 +146,14 @@ if "%BACKEND_UP%"=="1" (
     echo Backend already running on port 8000.
 ) else (
     echo Starting Django backend...
-    start "MWW Backend - Django" cmd /k "cd /d ""%~dp0backend"" && ""%~dp0backend\.venv\Scripts\python.exe"" manage.py recover_jobs && ""%~dp0backend\.venv\Scripts\python.exe"" manage.py runserver 127.0.0.1:8000"
+    start "Vira Backend - Django" cmd /k "cd /d ""%~dp0backend"" && ""%~dp0backend\.venv\Scripts\python.exe"" manage.py recover_jobs && ""%~dp0backend\.venv\Scripts\python.exe"" manage.py runserver 127.0.0.1:8000"
 )
 
 if "%FRONTEND_UP%"=="1" (
     echo Frontend already running on port 3000.
 ) else (
     echo Starting Next.js frontend...
-    start "MWW Frontend - Next.js" cmd /k "cd /d ""%~dp0frontend"" && npm run dev"
+    start "Vira Frontend - Next.js" cmd /k "cd /d ""%~dp0frontend"" && npm run start"
 )
 
 echo.
@@ -180,7 +180,7 @@ start "" "http://localhost:3000"
 
 echo.
 echo ============================================================
-echo  MWW Translator Studio launched.
+echo  Vira Translator Studio launched.
 echo  Frontend: http://localhost:3000
 echo  Backend : http://127.0.0.1:8000
 echo.

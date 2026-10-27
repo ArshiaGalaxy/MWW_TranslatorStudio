@@ -826,7 +826,7 @@ export function LanguageProvider({
   useEffect(() => {
     let saved: string | null = null;
     try {
-      saved = window.localStorage.getItem("mww.locale");
+      saved = window.localStorage.getItem("vira.locale");
     } catch {
       /* private mode */
     }
@@ -839,7 +839,7 @@ export function LanguageProvider({
     setLocaleState((prev) => (detected === prev ? prev : detected));
     if (detected !== initialLocale) {
       try {
-        document.cookie = `mww.locale=${detected}; path=/; max-age=31536000; samesite=lax`;
+        document.cookie = `vira.locale=${detected}; path=/; max-age=31536000; samesite=lax`;
       } catch {
         /* ignore */
       }
@@ -856,8 +856,8 @@ export function LanguageProvider({
   const setLocale = useCallback((l: Locale) => {
     setLocaleState(l);
     try {
-      window.localStorage.setItem("mww.locale", l);
-      document.cookie = `mww.locale=${l}; path=/; max-age=31536000; samesite=lax`;
+      window.localStorage.setItem("vira.locale", l);
+      document.cookie = `vira.locale=${l}; path=/; max-age=31536000; samesite=lax`;
     } catch {
       /* private mode */
     }

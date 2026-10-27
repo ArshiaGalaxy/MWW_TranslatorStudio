@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 // in the server-rendered <html lang/dir> below (read from the cookie), and
 // lib/i18n keeps that cookie in sync.
 const bootstrap = `(function(){try{
-var t=localStorage.getItem("mww.theme")||"light";
+var t=localStorage.getItem("vira.theme")||"light";
 var r=document.documentElement;
 r.classList.toggle("dark",t==="dark");
 r.classList.toggle("light",t!=="dark");
@@ -36,7 +36,7 @@ export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   const cookieStore = await cookies();
-  const locale = readLocaleCookie(cookieStore.get("mww.locale")?.value);
+  const locale = readLocaleCookie(cookieStore.get("vira.locale")?.value);
 
   return (
     <html

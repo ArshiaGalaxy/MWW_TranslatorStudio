@@ -1,4 +1,4 @@
-"""DRF views for MWW Translator Studio."""
+"""DRF views for Vira Translator Studio."""
 
 import logging
 import mimetypes

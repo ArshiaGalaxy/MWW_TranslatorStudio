@@ -1,5 +1,5 @@
 """
-Django settings for MWW Translator Studio backend.
+Django settings for Vira Translator Studio backend.
 """
 
 import os

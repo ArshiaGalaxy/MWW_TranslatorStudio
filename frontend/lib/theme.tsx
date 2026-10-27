@@ -20,7 +20,7 @@ const Ctx = createContext<ThemeCtx>({ theme: "light", setTheme: () => {} });
 
 function initialTheme(): Theme {
   if (typeof window === "undefined") return "light";
-  const saved = window.localStorage.getItem("mww.theme");
+  const saved = window.localStorage.getItem("vira.theme");
   return saved === "dark" ? "dark" : "light";
 }
 
@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = useCallback((t: Theme) => {
     setThemeState(t);
-    window.localStorage.setItem("mww.theme", t);
+    window.localStorage.setItem("vira.theme", t);
   }, []);
 
   const value = useMemo(() => ({ theme, setTheme }), [theme, setTheme]);

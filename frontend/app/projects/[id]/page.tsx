@@ -83,7 +83,7 @@ export default function WorkspacePage() {
   // Persisted per browser so it survives reloads.
   const [brushSize, setBrushSize] = useState<number>(() => {
     try {
-      const v = Number(localStorage.getItem("mww.brushSize"));
+      const v = Number(localStorage.getItem("vira.brushSize"));
       return Number.isFinite(v)
         ? Math.min(120, Math.max(4, Math.round(v)))
         : DEFAULT_BRUSH_WIDTH;
@@ -95,7 +95,7 @@ export default function WorkspacePage() {
     const clamped = Math.min(120, Math.max(4, Math.round(v)));
     setBrushSize(clamped);
     try {
-      localStorage.setItem("mww.brushSize", String(clamped));
+      localStorage.setItem("vira.brushSize", String(clamped));
     } catch {
       /* private mode — size still works for this session */
     }

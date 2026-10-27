@@ -1,4 +1,4 @@
-"""Django models for MWW Translator Studio."""
+"""Django models for Vira Translator Studio."""
 
 import uuid
 from django.db import models

@@ -53,7 +53,7 @@ export function parseTranslationText(
   }
   // Continue accepting previously exported marker-based text files.
   const lines = text.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n").split("\n");
-  const header = /^\[\[MWW-OCR 1 PROJECT ([^\s\]]+)\]\]$/.exec(lines[0]);
+  const header = /^\[\[Vira-OCR 1 PROJECT ([^\s\]]+)\]\]$/.exec(lines[0]);
   if (!header) throw new Error("format");
   if (header[1] !== projectId) throw new Error("project");
   const allowed = new Map(blocks.map((block) => [block.id, block]));

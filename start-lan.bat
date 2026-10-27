@@ -1,11 +1,11 @@
 @echo off
 setlocal EnableDelayedExpansion
-title MWW Translator Studio - LAN Launcher
+title Vira Translator Studio - LAN Launcher
 cd /d "%~dp0"
 cls
 
 REM =====================================================================
-REM  MWW Translator Studio - LAN launcher
+REM  Vira Translator Studio - LAN launcher
 REM
 REM  Same as start.bat, but the site is also reachable from other
 REM  devices on your WiFi (phone, tablet, another PC).
@@ -23,7 +23,7 @@ REM =====================================================================
 
 echo.
 echo  ============================================================
-echo      MWW  TRANSLATOR  STUDIO   -   LAN  Launcher
+echo      Vira  TRANSLATOR  STUDIO   -   LAN  Launcher
 echo  ============================================================
 echo.
 
@@ -53,7 +53,7 @@ REM  [2/4] Firewall : allow incoming TCP 3000 (one-time)
 REM ------------------------------------------------------------
 echo  [2/4] Firewall rule for port 3000...
 
-set "FWRULE=MWW Translator Studio LAN (TCP 3000)"
+set "FWRULE=Vira Translator Studio LAN (TCP 3000)"
 netsh advfirewall firewall show rule name="%FWRULE%" >nul 2>nul
 if errorlevel 1 (
     netsh advfirewall firewall add rule name="%FWRULE%" dir=in action=allow protocol=TCP localport=3000 profile=private,domain >nul 2>nul
@@ -102,17 +102,17 @@ if "%BACKEND_UP%"=="1" (
     echo        Backend  : already running   -  http://127.0.0.1:8000  ^(local only^)
 ) else (
     echo        Backend  : Django API        -  starting in a new window...
-    start "MWW Backend (Django :8000)" cmd /k "cd /d %~dp0backend && .venv\Scripts\python.exe manage.py recover_jobs && .venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000"
+    start "Vira Backend (Django :8000)" cmd /k "cd /d %~dp0backend && .venv\Scripts\python.exe manage.py recover_jobs && .venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000"
 )
 
 if "%FRONTEND_UP%"=="1" (
     echo        Frontend : already running   -  http://localhost:3000
     echo                    ^(if it was started with start.bat it already
-    echo                     accepts LAN connections - the Next dev server
+    echo                     accepts LAN connections - the Next start server
     echo                     listens on all interfaces by default^)
 ) else (
     echo        Frontend : Next.js site      -  starting in a new window...
-    start "MWW Frontend (Next :3000 LAN)" cmd /k "cd /d %~dp0frontend && call npm run dev -- -H 0.0.0.0"
+    start "Vira Frontend (Next :3000 LAN)" cmd /k "cd /d %~dp0frontend && call npm run start -- -H 0.0.0.0"
 )
 echo.
 

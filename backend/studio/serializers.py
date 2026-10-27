@@ -1,4 +1,4 @@
-"""DRF serializers for MWW Translator Studio."""
+"""DRF serializers for Vira Translator Studio."""
 
 from pathlib import Path
 import math
