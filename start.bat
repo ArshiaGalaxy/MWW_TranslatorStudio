@@ -15,7 +15,7 @@ set "MAX_RETRIES=5"
 
 echo.
 echo ============================================================
-echo     Vira TRANSLATOR STUDIO - Launcher
+echo     VIRA TRANSLATOR STUDIO - Launcher
 echo ============================================================
 echo.
 
@@ -153,7 +153,7 @@ if "%FRONTEND_UP%"=="1" (
     echo Frontend already running on port 3000.
 ) else (
     echo Starting Next.js frontend...
-    start "Vira Frontend - Next.js" cmd /k "cd /d ""%~dp0frontend"" && npm run start"
+    start "Vira Frontend - Next.js" cmd /k "cd /d ""%~dp0frontend"" && npm run dev"
 )
 
 echo.

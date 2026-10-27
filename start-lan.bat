@@ -23,7 +23,7 @@ REM =====================================================================
 
 echo.
 echo  ============================================================
-echo      Vira  TRANSLATOR  STUDIO   -   LAN  Launcher
+echo     VIRA  TRANSLATOR  STUDIO   -   LAN  Launcher
 echo  ============================================================
 echo.
 
@@ -112,7 +112,7 @@ if "%FRONTEND_UP%"=="1" (
     echo                     listens on all interfaces by default^)
 ) else (
     echo        Frontend : Next.js site      -  starting in a new window...
-    start "Vira Frontend (Next :3000 LAN)" cmd /k "cd /d %~dp0frontend && call npm run start -- -H 0.0.0.0"
+    start "Vira Frontend (Next :3000 LAN)" cmd /k "cd /d %~dp0frontend && call npm run dev -- -H 0.0.0.0"
 )
 echo.
 

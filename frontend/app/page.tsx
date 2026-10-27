@@ -170,7 +170,7 @@ export default function LandingPage() {
                     style={{ background: "var(--primary)" }}
                     aria-hidden
                   >
-                    <ArrowRight size={18} className="rtl:rotate-180" />
+                    <ArrowRight size={18} />
                   </span>
                 </div>
 
