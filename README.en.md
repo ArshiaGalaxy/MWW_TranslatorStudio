@@ -57,13 +57,13 @@ A full-stack, local-first studio for Persian manga/manhwa translation:
 | 🟢 Node.js | **18.18+** | [nodejs.org](https://nodejs.org/) |
 | 📦 Git (or download ZIP) | — | [git-scm.com](https://git-scm.com/) |
 | 🔑 Translation API key (optional) | — | [OpenRouter](https://openrouter.ai/) or [Gemini](https://aistudio.google.com/apikey) |
-| 🗂 LaMa model (optional) | `pip install simple-lama-inpainting` | see below 👇 |
+| 🤖 Optional AI features | Run `install-ai.bat` on Windows | see below 👇 |
 
 > 🪟 Windows, Linux and macOS are all supported; on Windows the included **`start.bat`** does everything (`start-lan.bat` additionally lets your phone/tablet use the app over the same WiFi).
 
 ## 🚀 Quick start: 0 to 100
 
-### Option 1 — Windows, one click (easiest)
+### Option 1 — Windows, one click (Core install)
 
 1. 📥 Get the project:
    ```powershell
@@ -77,7 +77,7 @@ A full-stack, local-first studio for Persian manga/manhwa translation:
    - ✔ Installs frontend packages (`npm install`)
    - ✔ Starts both servers and opens your default browser
 
-> ⏱ First run takes 5–10 minutes (package downloads); later runs take seconds. Then create a desktop shortcut to the same file.
+> ⏱ Setup time depends on your internet connection and system. The first run installs Core dependencies only; later starts should not require another large download. Then create a desktop shortcut to the same file.
 
 ### Option 2 — Standard (Linux / macOS / your own terminal)
 
@@ -90,7 +90,7 @@ cd Vira_TranslatorStudio
 cd backend
 python3 -m venv .venv
 source .venv/bin/activate           # Windows:  .venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r requirements-core.txt
 python manage.py migrate
 python manage.py runserver 127.0.0.1:8000
 
@@ -133,32 +133,35 @@ The servers run on the laptop; your phone only needs a browser:
 | 6️⃣ Apply & Export            | **Apply & Export** → originals inpainted away, Persian rendered → download links for **PDF / ZIP / PSD** |
 | 7️⃣ Settings                  | The Settings page edits the global engine config: keys, models, OCR params, typography |
 
-> 📌 The project also runs **without** the heavy AI packages: you can translate manually and still export PDF/ZIP/PSD. For auto-OCR and machine translation, one extra step is needed 👇
+> 📌 The project also runs **without** the heavy AI packages: you can translate manually and still export PDF/ZIP/PSD. OpenRouter/Custom API translation works in Core; automatic OCR, Gemini, and LaMa need the optional AI install 👇
 
-## 🤖 Enabling the AI features (optional)
+## 🤖 Enabling AI features (optional)
 
-**Tiered install:** so far only the light "Core" packages are installed. To unlock the AI features, install the full bundle once:
+The default `start.bat` installs only Core dependencies, so users do not need the heavy OCR/deep-learning stack just to use manual editing, Persian rendering, and PDF/ZIP/PSD export.
 
-```powershell
-cd backend
+To enable automatic OCR, Gemini, and LaMa inpainting:
+
+- **Windows:** after `start.bat` succeeds, run `install-ai.bat` from the project root.
+- **Linux/macOS:** activate the backend virtual environment, then run from the `backend` directory:
+
+```bash
+pip install -r requirements-ai.txt
+```
+
+The optional AI installation can require several gigabytes of disk space and a substantial download. Exact size and time depend on the system, package wheels, and models downloaded later.
+
+To install all features from the beginning instead, run this from the `backend` directory:
+
+```bash
 pip install -r requirements.txt
 ```
 
-Then:
-
-- 🔑 **Translation key** — either way works:
-  - OS environment variable: `setx GEMINI_API_KEY "..."` or `setx OPENROUTER_API_KEY "sk-or-..."`
-  - or inside the app: **Settings** → Translator section
-
-  <sub>(If you set the env var just now, restart the Django backend so it gets picked up.)</sub>
-
-- 🎨 **High-quality inpainting (optional)** — for better text removal with LaMa, just install this package into the venv (it is detected and used automatically):
-  `pip install simple-lama-inpainting`
+Translation through OpenRouter or a custom OpenAI-compatible endpoint uses the Core dependencies. Gemini, automatic OCR, and LaMa require the optional AI dependencies.
 
 | Tier | What you get |
 | --- | --- |
-| 🧱 Core (default) | Server, login, manual editing, PDF/ZIP/PSD export |
-| 🤖 Full (`requirements.txt`) | + auto-OCR, machine translation, inpainting |
+| 🧱 Core (default) | Server, manual editing, Persian rendering, PDF/ZIP/PSD export, OpenRouter/Custom API translation |
+| 🤖 Optional AI (`requirements-ai.txt`) | + automatic OCR, Gemini, and LaMa inpainting |
 
 ## 🔑 Environment variables
 
@@ -179,7 +182,7 @@ Then:
 | --- | --- |
 | `Port 8000 already in use` | Close the previous server window, or on Windows: `netstat -ano \| findstr :8000` then `taskkill /PID <pid> /F` |
 | Browser opened but page is blank/erroring | Backend is still booting — wait a few seconds and refresh |
-| Extract button errors | Run `pip install -r requirements.txt` inside the venv — the OCR engine is a separate, heavier install |
+| Extract button errors | On Windows run `install-ai.bat`; on Linux/macOS, activate the venv, enter `backend`, then run `pip install -r requirements-ai.txt` |
 | Auto-translate does nothing | Set the API key (above) and restart the backend |
 | `DLL load failed` on paddleocr | Install 64-bit (x64) Python, not 32-bit |
 | First page load is very slow | It's the first Next.js build — subsequent loads are fast |

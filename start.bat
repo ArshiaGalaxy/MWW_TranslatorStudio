@@ -1,4 +1,3 @@
-
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 title Vira Translator Studio - Launcher
@@ -52,9 +51,22 @@ for /f "delims=" %%v in ('node -v 2^>nul') do set "NODEVER=%%v"
 
 if not defined NODEVER goto fail_node
 
-node -e "const p=process.versions.node.split('.');process.exit(+p[0]>18||(+p[0]==18&&+p[1]>=18)?0:1)" >nul 2>&1
-if errorlevel 1 goto fail_node_old
+set "NODE_STR=%NODEVER:v=%"
+for /f "tokens=1,2 delims=." %%a in ("%NODE_STR%") do (
+    set "NODE_MAJOR=%%a"
+    set "NODE_MINOR=%%b"
+)
 
+if not defined NODE_MAJOR goto fail_node
+if not defined NODE_MINOR goto fail_node
+
+if !NODE_MAJOR! GTR 18 goto node_ok
+if !NODE_MAJOR! EQU 18 (
+    if !NODE_MINOR! GEQ 18 goto node_ok
+)
+goto fail_node_old
+
+:node_ok
 where npm >nul 2>&1
 if errorlevel 1 goto fail_node
 
@@ -67,8 +79,8 @@ REM ------------------------------------------------------------
 
 echo [2/4] Preparing Django backend...
 
-if not exist "backend\requirements.txt" (
-    echo [X] backend\requirements.txt not found.
+if not exist "backend\requirements-core.txt" (
+    echo [X] backend\requirements-core.txt not found.
     goto fail
 )
 
@@ -83,10 +95,7 @@ if not exist "backend\.venv\Scripts\python.exe" (
 
 set "VENV_PY=%~dp0backend\.venv\Scripts\python.exe"
 
-call :retry_pip_upgrade
-if errorlevel 1 goto fail_python_packages
-
-call :retry_requirements
+call :retry_core_requirements
 if errorlevel 1 goto fail_python_packages
 
 pushd backend
@@ -100,7 +109,8 @@ if errorlevel 1 (
 )
 
 popd
-echo [OK] Backend dependencies and database ready.
+echo [OK] Core backend dependencies and database ready.
+echo OCR and LaMa are optional; run install-ai.bat to add them.
 echo.
 
 REM ------------------------------------------------------------
@@ -145,37 +155,22 @@ for /f "delims=" %%a in ('powershell -NoProfile -Command "if (Get-NetTCPConnecti
 if "%BACKEND_UP%"=="1" (
     echo Backend already running on port 8000.
 ) else (
-    echo Starting Django backend...
-    start "Vira Backend - Django" cmd /k "cd /d ""%~dp0backend"" && ""%~dp0backend\.venv\Scripts\python.exe"" manage.py recover_jobs && ""%~dp0backend\.venv\Scripts\python.exe"" manage.py runserver 127.0.0.1:8000"
+    echo [START] Launching Django backend...
+    start "Vira Backend" /D "%~dp0backend" cmd /k ".venv\Scripts\python.exe manage.py runserver 127.0.0.1:8000"
+    echo [START] Backend launch command issued.
+    call :wait_backend
+    if errorlevel 1 goto fail
 )
 
 if "%FRONTEND_UP%"=="1" (
     echo Frontend already running on port 3000.
 ) else (
-    echo Starting Next.js frontend...
-    start "Vira Frontend - Next.js" cmd /k "cd /d ""%~dp0frontend"" && npm run dev"
+    echo [START] Launching Next.js frontend...
+    start "Vira Frontend" /D "%~dp0frontend" cmd /k "npm run dev"
+    echo [START] Frontend launch command issued.
+    call :wait_frontend
 )
 
-echo.
-echo Waiting for frontend to respond...
-
-set "WAITTRIES=0"
-
-:waitloop
-powershell -NoProfile -Command "try { $r=Invoke-WebRequest -UseBasicParsing -Uri 'http://localhost:3000' -TimeoutSec 3; exit 0 } catch { exit 1 }" >nul 2>&1
-
-if not errorlevel 1 goto open_browser
-
-set /a WAITTRIES+=1
-if !WAITTRIES! GEQ 60 goto open_anyway
-
-timeout /t 2 /nobreak >nul
-goto waitloop
-
-:open_anyway
-echo Frontend has not responded yet. Opening browser anyway.
-
-:open_browser
 start "" "http://localhost:3000"
 
 echo.
@@ -187,45 +182,64 @@ echo.
 echo  Keep the server windows open while using the application.
 echo ============================================================
 echo.
-timeout /t 5 /nobreak >nul
+ping -n 6 127.0.0.1 >nul
 exit /b 0
+
+REM ============================================================
+REM Wait helpers
+REM ============================================================
+
+:wait_backend
+echo Waiting for backend to respond...
+set /a BTRIES=0
+
+:wait_backend_loop
+powershell -NoProfile -Command "try { $r=Invoke-WebRequest -UseBasicParsing -Uri 'http://127.0.0.1:8000/api/' -TimeoutSec 2; exit 0 } catch { exit 1 }" >nul 2>&1
+if not errorlevel 1 (
+    echo [OK] Backend responding on 8000.
+    exit /b 0
+)
+set /a BTRIES+=1
+if !BTRIES! GEQ 30 (
+    echo [X] Backend did not become ready. Check the backend window for errors.
+    exit /b 1
+)
+ping -n 3 127.0.0.1 >nul
+goto wait_backend_loop
+
+:wait_frontend
+echo Waiting for frontend to respond...
+set /a WAITTRIES=0
+
+:wait_frontend_loop
+powershell -NoProfile -Command "try { $r=Invoke-WebRequest -UseBasicParsing -Uri 'http://localhost:3000' -TimeoutSec 3; exit 0 } catch { exit 1 }" >nul 2>&1
+if not errorlevel 1 exit /b 0
+set /a WAITTRIES+=1
+if !WAITTRIES! GEQ 60 (
+    echo Frontend has not responded yet. Opening browser anyway.
+    exit /b 0
+)
+ping -n 3 127.0.0.1 >nul
+goto wait_frontend_loop
 
 REM ============================================================
 REM Retry functions
 REM ============================================================
 
-:retry_pip_upgrade
-set "RETRY_COUNT=0"
-
-:pip_upgrade_loop
-set /a RETRY_COUNT+=1
-echo.
-echo [pip] Upgrade attempt !RETRY_COUNT!/%MAX_RETRIES%...
-
-"%VENV_PY%" -m pip install --upgrade pip
-if not errorlevel 1 exit /b 0
-
-if !RETRY_COUNT! GEQ %MAX_RETRIES% exit /b 1
-
-set /a RETRY_DELAY=RETRY_COUNT*3
-echo Installation failed. Retrying in !RETRY_DELAY! seconds...
-timeout /t !RETRY_DELAY! /nobreak >nul
-goto pip_upgrade_loop
-
-:retry_requirements
+:retry_core_requirements
 set "RETRY_COUNT=0"
 
 :requirements_loop
 set /a RETRY_COUNT+=1
 echo.
-echo [pip] Requirements attempt !RETRY_COUNT!/%MAX_RETRIES%...
+echo [pip] Core requirements attempt !RETRY_COUNT!/%MAX_RETRIES%...
 
-"%VENV_PY%" -m pip install --prefer-binary -r "%~dp0backend\requirements.txt"
+"%VENV_PY%" -m pip install --prefer-binary -r "%~dp0backend\requirements-core.txt"
 if not errorlevel 1 exit /b 0
 
 if !RETRY_COUNT! GEQ %MAX_RETRIES% exit /b 1
 
-set /a RETRY_DELAY=RETRY_COUNT*3
+set /a RETRY_DELAY=!RETRY_COUNT!*3
 echo Installation failed. Retrying in !RETRY_DELAY! seconds...
 timeout /t !RETRY_DELAY! /nobreak >nul
 goto requirements_loop
@@ -243,7 +257,7 @@ if not errorlevel 1 exit /b 0
 
 if !RETRY_COUNT! GEQ %MAX_RETRIES% exit /b 1
 
-set /a RETRY_DELAY=RETRY_COUNT*3
+set /a RETRY_DELAY=!RETRY_COUNT!*3
 echo Installation failed. Retrying in !RETRY_DELAY! seconds...
 timeout /t !RETRY_DELAY! /nobreak >nul
 goto npm_install_loop
@@ -280,7 +294,7 @@ goto fail
 :fail_python_packages
 echo.
 echo [X] Python package installation failed after retries.
-echo Check your internet connection and requirements.txt.
+echo Check your internet connection and backend\requirements-core.txt.
 echo Run start.bat again to retry.
 goto fail
 

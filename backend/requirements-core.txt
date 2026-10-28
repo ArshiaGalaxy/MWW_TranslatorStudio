@@ -1,0 +1,14 @@
+# Core dependencies: manual editing, rendering, PDF/ZIP/PSD export, and API-based OpenRouter/Custom translation.
+# Lightweight compared with the optional OCR/LaMa stack.
+Django==5.2.18
+django-cors-headers==4.9.0
+djangorestframework==3.18.3
+numpy==1.26.4
+opencv-python-headless==4.11.0.86
+Pillow==9.5.0
+psd-tools==1.8.24
+PyMuPDF==2.0
+python-bidi==0.6.12
+python-dotenv==1.2.4
+arabic-reshaper==3.0.1
+requests==2.34.2
