@@ -6,7 +6,7 @@
 
 PDF رو میدی؛ متن تشخیص داده می‌شه، به فارسی ترجمه می‌شه، متن اصلی پاک می‌شه و متن فارسی روی صفحه رندر می‌شه. خروجی: PDF / ZIP / PSD.
 
-[![License: PolyForm Noncommercial](https://img.shields.io/badge/License-PolyForm--Noncommercial--1.0.0-orange.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Node](https://img.shields.io/badge/Node.js-18.18%2B-green?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Django](https://img.shields.io/badge/Django-5-darkgreen?logo=django&logoColor=white)](https://www.djangoproject.com/)
@@ -199,11 +199,11 @@ pip install -r requirements.txt
 
 ## 📜 لایسنس (مهم)
 
-این پروژه تحت **[PolyForm Noncommercial 1.0.0](LICENSE)** منتشر شده:
+این پروژه تحت **[MIT License](LICENSE)** منتشر شده:
 
-- ✅ **استفادهٔ شخصی و غیرتجاری کاملاً آزاد** — دانلود، اجرا، تغییر و استفاده در سیستم خودت.
-- ⛔ **فروش، بازنشر با نام دیگری، یا حذف نشانهٔ کپی‌رایت ممنوع است** — این‌ها فقط با اجازهٔ کتبیِ نویسنده ممکن است.
-- 💌 برای همکاری، استفادهٔ تجاری یا انتشار دوباره: [Issue باز کنید](https://github.com/ArshiaGalaxy/Vira_TranslatorStudio/issues) یا به من پیام بده — خوشحال می‌شم کمک کنم.
+- ✅ **استفاده، تغییر، انتشار و استفادهٔ تجاری آزاد است** — هر کاری با کد می‌تونی بکنی.
+- 🔖 تنها شرط: **نشانی کپی‌رایت و متن لایسنس باید همراه کد باقی بماند.**
+- 💌 برای همکاری یا هر سؤالی: [Issue باز کنید](https://github.com/ArshiaGalaxy/Vira_TranslatorStudio/issues) یا به من پیام بده — خوشحال می‌شم کمک کنم.
 
 ## 🤝 مشارکت
 

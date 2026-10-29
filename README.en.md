@@ -6,7 +6,7 @@
 
 You feed it a PDF: text gets detected, translated to Persian, the original is inpainted away, and the Persian text is rendered on the page. Export: **PDF / ZIP / PSD**.
 
-[![License: PolyForm Noncommercial](https://img.shields.io/badge/License-PolyForm--Noncommercial--1.0.0-orange.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
 [![Node](https://img.shields.io/badge/Node.js-18.18%2B-green?logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Django](https://img.shields.io/badge/Django-5-darkgreen?logo=django&logoColor=white)](https://www.djangoproject.com/)
@@ -191,11 +191,11 @@ Translation through OpenRouter or a custom OpenAI-compatible endpoint uses the C
 
 ## 📜 License (please read)
 
-Released under **[PolyForm Noncommercial 1.0.0](LICENSE)**:
+Released under **[MIT License](LICENSE)**:
 
-- ✅ **Personal, noncommercial use is completely free** — download, run, modify, use on your own machine.
-- ⛔ **Selling, republishing under a different name, or removing attribution is not allowed** — those require the author's written permission.
-- 💌 For collaboration, commercial use or redistribution: [open an Issue](https://github.com/ArshiaGalaxy/Vira_TranslatorStudio/issues) or message me — happy to help.
+- ✅ **Use, modify, redistribute and use commercially — all free** — do whatever you like with the code.
+- 🔖 The only condition: **the copyright notice and license text must stay with the code.**
+- 💌 For collaboration or any question: [open an Issue](https://github.com/ArshiaGalaxy/Vira_TranslatorStudio/issues) or message me — happy to help.
 
 ## 🤝 Contributing
 

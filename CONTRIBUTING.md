@@ -20,7 +20,7 @@
 
 ### قوانین مهم
 
-- ⛔ **بازنشرِ تغییرنام‌شده ممنوع**: طبق مجوز `LICENSE`، این پروژه فقط برای استفاده غیرتجاری آزاده. لطفاً نسخه‌ای با اسم جدید منتشر نکنین یا اعلان کپی‌رایت (`Required Notice`) رو حذف نکنین.
+- ✅ **بازنشر و تغییر آزاد است**: طبق مجوز `LICENSE` (MIT)، این پروژه تحت مجوز MIT منتشر شده و می‌توانید آن را تغییر داده، بازنشر کنید و حتی استفاده تجاری داشته باشید — تنها شرط، حفظ اعلان کپی‌رایت و متن لایسنس (`Required Notice`) است.
 - ✅ کپی‌رایت و لینک پروژه رو در تغییرات خودتون حفظ کنین.
 - 🛠 کد تمیز بنویسین و با سبک موجود (فرمت و ساختار پوشه‌ها) هماهنگ باشین.
 
@@ -42,6 +42,6 @@
 
 ### Ground rules
 
-- ⛔ **No renamed/redistributed copies** — per the [LICENSE](LICENSE) (PolyForm Noncommercial), free use means *noncommercial use of this project*, not re-releasing it under your own name.
+- ✅ **Redistribution and modification are free** — per the [LICENSE](LICENSE) (MIT License), you may use, modify, redistribute and even use this project commercially; the only requirement is to keep the copyright notice and license text (`Required Notice`) intact.
 - ✅ Keep the project attribution (`Required Notice`) intact in your changes.
 - 🛠 Match the existing code style and folder structure.
